@@ -27,5 +27,63 @@ Have fun and don't pee into the wrong urinal ;)
 */
 
 function getFreeUrinals(urinals){
+  let anyOnes = false;
+  let maxOnes = 0;
+  let looped = false;
   
+  // determines if there's already a mistake in the input string
+  for(let i = 0; i < urinals.length - 1; i++) {
+    if(i === 0) {
+      if(urinals[i] === '1' && urinals[i+1] === '1') {
+        return -1;
+      }
+    }
+    if(urinals[i] === '1' && urinals[i+1] === '1') {
+      return -1;
+    }
+  }
+  
+  // if length is odd
+  if(urinals.length % 2 !== 0) {
+    for(let j = 0; j < urinals.length; j++) {
+      if(urinals[j] === '1' && anyOnes === false) {
+        anyOnes = true;
+        if(j % 2 !== 0) {
+          maxOnes = Math.floor(urinals.length / 2);
+        } else {
+          maxOnes = Math.floor(urinals.length / 2) - 1;
+        }
+      }
+      if(urinals[j] === '1') {
+        maxOnes = maxOnes - 1;
+      }
+    }
+    looped = true;
+  }
+
+
+  // if length is even
+  if(urinals.length % 2 !== 0) {
+    for(let h = 0; h < urinals.length; h++) {
+      if(urinals[h] === '1' && anyOnes === false) {
+        anyOnes = true;
+        maxOnes = (urinals.length / 2) - 1;
+      }
+      if(urinals[h] === '1') {
+        maxOnes = maxOnes - 1;
+      }
+    }
+    looped = true;
+  }
+
+  if(maxOnes === 0 && looped === false) {
+    if(urinals.length % 2 !== 0) {
+      maxOnes = Math.floor(urinals.length / 2) + 1;
+    } else {
+
+      maxOnes = urinals.length / 2;
+    }
+  }
+
+  return maxOnes;
 }
