@@ -51,16 +51,16 @@ const getFreeUrinals = (urinals) => {
         anyOnes = true;
         if(j === 0) {
           maxOnes = Math.floor(urinals.length / 2);
-        } else {
-          maxOnes = Math.floor(urinals.length / 2) - 1;
+          console.log('you are in the first index, and here is maxOnes: ' + maxOnes);
         }
-        if(j % 2 !== 0) {
+        if(j % 2 !== 0 && j !== 0) {
           maxOnes = Math.floor(urinals.length / 2);
-        } else {
+        } 
+        if(j % 2 === 0 && j !== 0) {
           maxOnes = Math.floor(urinals.length / 2) - 1;
         }
       }
-      if(urinals[j] === '1' && anyOnes === true) {
+      if(urinals[j] === '1' && anyOnes === true && j !== 0) {
         maxOnes = maxOnes - 1;
       }
     }
