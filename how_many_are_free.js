@@ -26,13 +26,13 @@ When their is already a mistake in the input string (for example 011), then retu
 Have fun and don't pee into the wrong urinal ;)
 */
 
-function getFreeUrinals(urinals){
+const getFreeUrinals = (urinals) => {
   let anyOnes = false;
   let maxOnes = 0;
   let looped = false;
   
   // determines if there's already a mistake in the input string
-  for(let i = 0; i < urinals.length - 1; i++) {
+  for(let i = 0; i < urinals.length; i++) {
     if(i === 0) {
       if(urinals[i] === '1' && urinals[i+1] === '1') {
         return -1;
@@ -41,11 +41,15 @@ function getFreeUrinals(urinals){
     if(urinals[i] === '1' && urinals[i+1] === '1') {
       return -1;
     }
+
   }
   
   // if length is odd
   if(urinals.length % 2 !== 0) {
     for(let j = 0; j < urinals.length; j++) {
+      if(urinals[j] === '1' && anyOnes === true) {
+        maxOnes = maxOnes - 1;
+      }
       if(urinals[j] === '1' && anyOnes === false) {
         anyOnes = true;
         if(j % 2 !== 0) {
@@ -54,16 +58,16 @@ function getFreeUrinals(urinals){
           maxOnes = Math.floor(urinals.length / 2) - 1;
         }
       }
-      if(urinals[j] === '1') {
-        maxOnes = maxOnes - 1;
-      }
     }
     looped = true;
+    if(maxOnes < 0) {
+      return 0;
+    }
   }
 
 
   // if length is even
-  if(urinals.length % 2 !== 0) {
+  if(urinals.length % 2 === 0) {
     for(let h = 0; h < urinals.length; h++) {
       if(urinals[h] === '1' && anyOnes === false) {
         anyOnes = true;
@@ -74,9 +78,14 @@ function getFreeUrinals(urinals){
       }
     }
     looped = true;
+    if(maxOnes < 0) {
+      return 0;
+    }
   }
 
-  if(maxOnes === 0 && looped === false) {
+  // if there is no mistake, but there is no one in a urinal
+  if(looped === false || anyOnes === false) {
+    console.log('you aren not getting through the other loops');
     if(urinals.length % 2 !== 0) {
       maxOnes = Math.floor(urinals.length / 2) + 1;
     } else {
