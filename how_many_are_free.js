@@ -47,16 +47,21 @@ const getFreeUrinals = (urinals) => {
   // if length is odd
   if(urinals.length % 2 !== 0) {
     for(let j = 0; j < urinals.length; j++) {
-      if(urinals[j] === '1' && anyOnes === true) {
-        maxOnes = maxOnes - 1;
-      }
       if(urinals[j] === '1' && anyOnes === false) {
         anyOnes = true;
+        if(j === 0) {
+          maxOnes = Math.floor(urinals.length / 2);
+        } else {
+          maxOnes = Math.floor(urinals.length / 2) - 1;
+        }
         if(j % 2 !== 0) {
           maxOnes = Math.floor(urinals.length / 2);
         } else {
           maxOnes = Math.floor(urinals.length / 2) - 1;
         }
+      }
+      if(urinals[j] === '1' && anyOnes === true) {
+        maxOnes = maxOnes - 1;
       }
     }
     looped = true;
