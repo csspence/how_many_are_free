@@ -76,11 +76,12 @@ const getFreeUrinals = (urinals) => {
     for(let h = 0; h < urinals.length; h++) {
       if(urinals[h] === '1' && anyOnes === false) {
         anyOnes = true;
-        maxOnes = (urinals.length / 2) - 1;
+        maxOnes = (urinals.length / 2);
       }
       if(urinals[h] === '1') {
         maxOnes = maxOnes - 1;
       }
+      console.log('maxOnes: ' + maxOnes);
     }
     looped = true;
     if(maxOnes < 0) {
@@ -101,3 +102,5 @@ const getFreeUrinals = (urinals) => {
 
   return maxOnes;
 }
+
+getFreeUrinals('0001');
